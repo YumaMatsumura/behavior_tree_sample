@@ -11,15 +11,15 @@ jobs:
       - name: Make directories
         run: mkdir -p ros2_ws/src
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with: 
           path: ros2_ws/src
       - name: Setup ROS2 environment
-        uses: ros-tooling/setup-ros@v0.2
+        uses: ros-tooling/setup-ros@v0.3.3
         with: 
           required-ros-distributions: humble
       - name: Build and Test
-        uses: ros-tooling/action-ros-ci@v0.2
+        uses: ros-tooling/action-ros-ci@v0.2.5
         with:
           package-name: behavior_tree_sample
           target-ros2-distro: humble
