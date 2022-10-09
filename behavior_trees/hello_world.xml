@@ -1,0 +1,5 @@
+<root main_tree_to_exeute="MainTree">
+  <BehaviorTree ID="MainTree">
+    <HelloWorldAction name="hello_world"/>
+  </BehaviorTree>
+</root>
