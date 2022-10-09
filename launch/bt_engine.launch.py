@@ -11,6 +11,7 @@ def generate_launch_description():
             package='behavior_tree_sample',
             executable='bt_engine',
             parameters=[
+                {'use_groot_monitor': True},
                 {'xml_filename': 'hello_world.xml'},
                 {'plugin_lib_names': ['hello_world_action_bt_node']}
             ],
