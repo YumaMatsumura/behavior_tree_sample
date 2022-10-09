@@ -8,6 +8,8 @@ jobs:
     strategy:
       fail-fast: false
     steps:
+      - name: Apt install
+        run: apt-get install ros-humble-behaviortree-cpp-v3
       - name: Make directories
         run: mkdir -p ros2_ws/src
       - name: Checkout
