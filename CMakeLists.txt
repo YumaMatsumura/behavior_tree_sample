@@ -42,7 +42,7 @@ install(TARGETS ${plugin_libs}
 install(TARGETS bt_engine
   DESTINATION lib/${PROJECT_NAME}
 )
-install(DIRECTORY behavior_trees
+install(DIRECTORY launch behavior_trees
   DESTINATION share/${PROJECT_NAME}
 )
 
