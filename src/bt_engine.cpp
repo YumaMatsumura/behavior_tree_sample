@@ -17,19 +17,32 @@ BtEngine::BtEngine(
   this->declare_parameter<std::vector<std::string>>("plugin_lib_names", plugin_libs);
   this->declare_parameter<std::string>("xml_package_path", package_path);
   this->declare_parameter<std::string>("xml_filename", "hello_world.xml");
+  this->declare_parameter<uint16_t>("publisher_port", 1666);
+  this->declare_parameter<uint16_t>("server_port", 1667);
+  this->declare_parameter<uint16_t>("max_msg_per_second", 25);
+  this->declare_parameter<bool>("use_groot_monitor", true);
   
   
   // Get ros2 params
   std::string xml_package_path;
   std::string xml_filename;
+  bool use_groot_monitor;
   this->get_parameter("plugin_lib_names", plugin_lib_names_);
   this->get_parameter("xml_package_path", xml_package_path);
   this->get_parameter("xml_filename", xml_filename);
+  this->get_parameter("publisher_port", publisher_port_);
+  this->get_parameter("server_port", server_port_);
+  this->get_parameter("max_msg_per_second", max_msg_per_second_);
+  this->get_parameter("use_groot_monitor", use_groot_monitor);
   
   bt_file_path_ = xml_package_path + "/" + xml_filename;
   
   loadPlugins();
   loadTree();
+  if(use_groot_monitor)
+  {
+    publishToGrootMonitor();
+  }
   
   // Create timer
   timer_ = this->create_wall_timer(500ms, std::bind(&BtEngine::timerCallback, this));
@@ -38,6 +51,13 @@ BtEngine::BtEngine(
 void BtEngine::timerCallback()
 {
   tree_->tickRoot();
+}
+
+void BtEngine::publishToGrootMonitor()
+{
+  groot_monitor_ = std::make_unique<BT::PublisherZMQ>(
+    *tree_, max_msg_per_second_, publisher_port_, server_port_
+  );
 }
 
 void BtEngine::loadPlugins()
