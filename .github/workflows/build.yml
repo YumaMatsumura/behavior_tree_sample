@@ -15,11 +15,11 @@ jobs:
         with: 
           path: ros2_ws/src
       - name: Setup ROS2 environment
-        uses: ros-tooling/setup-ros@v0.4.1
+        uses: ros-tooling/setup-ros@v0.4
         with: 
           required-ros-distributions: humble
       - name: Build and Test
-        uses: ros-tooling/action-ros-ci@v0.2.6
+        uses: ros-tooling/action-ros-ci@v0.2
         with:
           package-name: behavior_tree_sample
           target-ros2-distro: humble
