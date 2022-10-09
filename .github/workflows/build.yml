@@ -1,0 +1,26 @@
+name: build and test
+on: 
+  push:
+    branches: [ master ]
+jobs:
+  build_bt_sample:
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+    steps:
+      - name: Make directories
+        run: mkdir -p ros2_ws/src
+      - name: Checkout
+        uses: actions/checkout@v2
+        with: 
+          path: ros2_ws/src
+      - name: Setup ROS2 environment
+        uses: ros-tooling/setup-ros@v0.2
+        with: 
+          required-ros-distributions: humble
+      - name: Build and Test
+        uses: ros-tooling/action-ros-ci@v0.2
+        with:
+          package-name: behavior_tree_sample
+          target-ros2-distro: humble
+          vcs-repo-file-url: ""
